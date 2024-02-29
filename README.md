@@ -9,8 +9,7 @@ Specifically, through centralized optimal control, a peak shaving strategy or a 
 Although the currently available archetypes refer to the Italian case study, the tool given its simplicity is easily modified and adaptable to the needs of the individual use.  
 
 For further information on ClustEnergy OpTool operation, refer to the documentation.
-
-For more information on the methodology, see references below.
+\nFor more information on the methodology, see references below.
 
 # Dependencies
 ClustEnergy OpTool is implemented in Python 3.9 and uses the following libraries:
