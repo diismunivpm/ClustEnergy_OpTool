@@ -9,6 +9,20 @@ Specifically, through centralized optimal control, a peak shaving strategy or a 
 Although the currently available archetypes refer to the Italian case study, the tool given its simplicity is easily modified and adaptable to the needs of the individual use.  
 
 For further information on ClustEnergy OpTool operation, refer to the documentation.
+For more information on the methodology, see references below.
+
+# Dependencies
+ClustEnergy OpTool is implemented in Python 3.9 and uses the following libraries:
+- pandas
+- numpy
+- scipy
+- pvlib
+- matplotlib
+- os
+- sys
+- psychrolib
+- math
+- datetime
 
 # Contacts
 - Patricia Ercoli p.ercoli@pm.univpm.it
@@ -17,3 +31,8 @@ For further information on ClustEnergy OpTool operation, refer to the documentat
 
 # Revision history
 29 February 2024, first version
+
+# References
+- Mugnini, A., Polonara, F., Arteconi, A., 2021. Energy Flexibility of Clusters of Buildings: development of an assessment tool. Proceedings of Building Simulation 2021: 17th Conference of IBPSA, IBPSA, 167-174.
+- Ercoli, P., Mugnini, A., Caresana, F., Arteconi, A., 2023. Flexible heat pumps in clusters of buildings: energy flexibility quantification of space cooling loads. Proceedings of the 26th IIR International Congress of Refrigeration: Paris, IIR.
+- Ercoli, P., Mugnini, A., Polonara, F., Arteconi, A., 2023. Flexible cooling demand in cluster of buildings: energy flexibility quantification in presence of central or distributed photovoltaic generation. Proceedings of Building Simulation 2023: 18th Conference of IBPSA, IBPSA, 3453-3460.
