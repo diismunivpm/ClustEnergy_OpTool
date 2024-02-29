@@ -1,4 +1,4 @@
-# ClustEnergy_OpTool
+# ClustEnergy OpTool
 Python tool for evaluating the energy flexibility offered by a user-defined cluster of buildings via optimized control.
 
 ClustEnergy OpTool version 1.0.0 is a useful tool for evaluating the energy flexibility potential offered by an aggregate of buildings (e.g., cluster of buildings), which is useful for resource planning in future scenarios. 
@@ -10,8 +10,10 @@ Although the currently available archetypes refer to the Italian case study, the
 
 For further information on ClustEnergy OpTool operation, refer to the documentation.
 
-For any problem or question please contact:
+# Contacts
 - Patricia Ercoli p.ercoli@pm.univpm.it
 - Alice Mugnini a.mugnini@univpm.it
 - Alessia Arteconi a.arteconi@univpm.it
 
+# Revision history
+29 February 2024, first version
