@@ -1,6 +1,6 @@
 """
-ClustEnergy OpTool
-Released on January, 2024
+ClustEnergy OpTool version 1.0.0
+Released on February 29, 2024
 @author: DIISM UNIVPM
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 """
@@ -86,13 +86,15 @@ def SFH2006_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
         walls_solar.append(southWall.walls_solar_gains + eastWall.walls_solar_gains + westWall.walls_solar_gains + northWall.walls_solar_gains)                  # Walls solar gains
         roof_solar.append(horRoof.walls_solar_gains)                                                                                                             # Roof solar gains
 
+    floor_area = Archetype.floor_area
+    
     """Internal gains due to people, lighting, and equipment are calculated from the occupancy profile defined using the richardsonpy tool
         (see the python file "User_pattern.py"). Then the trends are given as input to the archetype function. 
         However, it is possible to consider them constant during the simulation period calculated according to the methodology described in UNI 11300-1. """
     
     # To consider internal gains constant, then activate the following lines of code
     """
-    Af = Archetype.floor_area*2   
+    Af = floor_area*2   
     if Af<=120: 
        internalGains = 7.987 * Af - 0.0353 * Af^2  # Internal gains (UNI 11300-1 pr. 13) 
     else: 
@@ -173,8 +175,8 @@ def SFH2006_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
         Bub_opt[i+(1*samples),0]           = M_max[i]-float(Lower[i])
 
     Aub = Aub_opt.reshape(samples*(Nc),samples)
-    Bub = Bub_opt.reshape(samples*(Nc),1)     
-
+    Bub = Bub_opt.reshape(samples*(Nc),1)  
+       
     return(c,      # 0 - decision variable coefficients
            Aub,    # 1 - Matrix of inequality constraints
            Bub,    # 2 - Vector of inequlity constraints
@@ -183,7 +185,8 @@ def SFH2006_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
            Z,      # 5 - Variable describing the state of the system containing the thermal demand (decision variable)
            M_max,  # 6 - Variable describing the state of the indoor air temperture
            Upper,  # 7 - Upper range of indoor temperature trend
-           Lower)  # 8 - Lower range of indoor temperature trend
+           Lower,  # 8 - Lower range of indoor temperature trend
+           floor_area) # 9 - Floor area (m2)
 
 """
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -242,13 +245,15 @@ def SFH2006_floor(Locality, day, month, duration, timestep, th_sp, th_tolerance_
         walls_solar.append(southWall.walls_solar_gains + eastWall.walls_solar_gains + westWall.walls_solar_gains + northWall.walls_solar_gains)                    # Solar gains
         roof_solar.append(horRoof.walls_solar_gains)      
                                                                                                              
+    floor_area = Archetype.floor_area
+    
     """Internal gains due to people, lighting, and equipment are calculated from the occupancy profile defined using the richardsonpy tool
         (see the python file "User_pattern.py"). Then the trends are given as input to the archetype function. 
         However, it is possible to consider them constant during the simulation period calculated according to the methodology described in UNI 11300-1. """
     
     # To consider internal gains constant, then activate the following lines of code
     """
-    Af = Archetype.floor_area*2   
+    Af = floor_area*2   
     if Af<=120: 
        internalGains = 7.987 * Af - 0.0353 * Af^2  # Internal gains (UNI 11300-1 pr. 13) 
     else: 
@@ -344,7 +349,8 @@ def SFH2006_floor(Locality, day, month, duration, timestep, th_sp, th_tolerance_
            Upper,  # 7 - Upper range of indoor temperature trend
            Lower,  # 8 - Lower range of indoor temperature trend  # 8 - Lower range of indoor temperature trend
            Z_floor,     # 9 - Variable describing the state of the floor system containing the thermal demand (decision variable)
-           M_max_floor) # 10 - Variable describing the state of the floor temperture
+           M_max_floor, # 10 - Variable describing the state of the floor temperture
+           floor_area)# 11 - Floor area (m2)
 
 """
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -403,13 +409,15 @@ def SFH2005_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
         walls_solar.append(southWall.walls_solar_gains + eastWall.walls_solar_gains + westWall.walls_solar_gains + northWall.walls_solar_gains)                    # Solar gains
         roof_solar.append(horRoof.walls_solar_gains)      
     
+    floor_area = Archetype.floor_area
+    
     """Internal gains due to people, lighting, and equipment are calculated from the occupancy profile defined using the richardsonpy tool
         (see the python file "User_pattern.py"). Then the trends are given as input to the archetype function. 
         However, it is possible to consider them constant during the simulation period calculated according to the methodology described in UNI 11300-1. """
     
     # To consider internal gains constant, then activate the following lines of code
     """
-    Af = Archetype.floor_area*2   
+    Af = floor_area*2   
     if Af<=120: 
        internalGains = 7.987 * Af - 0.0353 * Af^2  # Internal gains (UNI 11300-1 pr. 13) 
     else: 
@@ -500,7 +508,8 @@ def SFH2005_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
            Z,      # 5 - Variable describing the state of the system containing the thermal demand (decision variable)
            M_max,  # 6 - Variable describing the state of the indoor air temperture
            Upper,  # 7 - Upper range of indoor temperature trend
-           Lower)  # 8 - Lower range of indoor temperature trend
+           Lower,  # 8 - Lower range of indoor temperature trend
+           floor_area) # 9 - Floor area (m2)
 
 """
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -559,13 +568,15 @@ def SFH1990_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
         walls_solar.append(southWall.walls_solar_gains + eastWall.walls_solar_gains + westWall.walls_solar_gains + northWall.walls_solar_gains)                    # Solar gains
         roof_solar.append(horRoof.walls_solar_gains)      
 
+    floor_area = Archetype.floor_area
+
     """Internal gains due to people, lighting, and equipment are calculated from the occupancy profile defined using the richardsonpy tool
         (see the python file "User_pattern.py"). Then the trends are given as input to the archetype function. 
         However, it is possible to consider them constant during the simulation period calculated according to the methodology described in UNI 11300-1. """
     
     # To consider internal gains constant, then activate the following lines of code
     """
-    Af = Archetype.floor_area*2   
+    Af = floor_area*2   
     if Af<=120: 
        internalGains = 7.987 * Af - 0.0353 * Af^2  # Internal gains (UNI 11300-1 pr. 13) 
     else: 
@@ -656,7 +667,8 @@ def SFH1990_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
            Z,      # 5 - Variable describing the state of the system containing the thermal demand (decision variable)
            M_max,  # 6 - Variable describing the state of the indoor air temperture
            Upper,  # 7 - Upper range of indoor temperature trend
-           Lower)  # 8 - Lower range of indoor temperature trend
+           Lower,  # 8 - Lower range of indoor temperature trend
+           floor_area) # 9 - Floor area (m2)
 
 """
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -715,13 +727,15 @@ def SFH1960_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
         walls_solar.append(southWall.walls_solar_gains + eastWall.walls_solar_gains + westWall.walls_solar_gains + northWall.walls_solar_gains)                    # Solar gains
         roof_solar.append(horRoof.walls_solar_gains)
 
+    floor_area = Archetype.floor_area
+
     """Internal gains due to people, lighting, and equipment are calculated from the occupancy profile defined using the richardsonpy tool
         (see the python file "User_pattern.py"). Then the trends are given as input to the archetype function. 
         However, it is possible to consider them constant during the simulation period calculated according to the methodology described in UNI 11300-1. """
     
     # To consider internal gains constant, then activate the following lines of code
     """
-    Af = Archetype.floor_area*2   
+    Af = floor_area*2   
     if Af<=120: 
        internalGains = 7.987 * Af - 0.0353 * Af^2  # Internal gains (UNI 11300-1 pr. 13) 
     else: 
@@ -803,7 +817,7 @@ def SFH1960_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
 
     Aub = Aub_opt.reshape(samples*(Nc),samples)
     Bub = Bub_opt.reshape(samples*(Nc),1)     
-
+       
     return(c,      # 0 - decision variable coefficients
            Aub,    # 1 - Matrix of inequality constraints
            Bub,    # 2 - Vector of inequlity constraints
@@ -812,4 +826,5 @@ def SFH1960_air(Locality, day, month, duration, timestep, th_sp, th_tolerance_su
            Z,      # 5 - Variable describing the state of the system containing the thermal demand (decision variable)
            M_max,  # 6 - Variable describing the state of the indoor air temperture
            Upper,  # 7 - Upper range of indoor temperature trend
-           Lower)  # 8 - Lower range of indoor temperature trend
+           Lower,  # 8 - Lower range of indoor temperature trend
+           floor_area) # 9 - Floor area (m2)
