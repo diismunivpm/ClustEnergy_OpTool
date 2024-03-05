@@ -1,6 +1,6 @@
 """
-ClustEnergy OpTool
-Released on January, 2024
+ClustEnergy OpTool version 1.0.0
+Released on February 29, 2024
 @author: DIISM UNIVPM
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 """
@@ -10,7 +10,6 @@ from scipy.optimize import linprog
 from Meteo import MeteoFile, PV_load
 from Archetypes import SFH2006_air, SFH2005_air, SFH1990_air, SFH1960_air, SFH2006_floor
 import HPperformance
-import Archetypes
 from User_pattern import intGains, occProfile
 import User_pattern
 import math
@@ -1718,6 +1717,8 @@ def pv_centralized(Locality, day, month, duration, timestep, Thermal_load,
         upper["upper_SFH06_{0}".format(i+1)]     = SFH2006_air(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH06_{0}".format(i+1)], gains["gainsSFH06_{0}".format(i+1)],Q_SFH06_air)[7]
         lower["lower_SFH06_{0}".format(i+1)]     = SFH2006_air(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH06_{0}".format(i+1)], gains["gainsSFH06_{0}".format(i+1)],Q_SFH06_air)[8]
         
+        floor_area_SFH06air     = SFH2006_air(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH06_{0}".format(i+1)], gains["gainsSFH06_{0}".format(i+1)],Q_SFH06_air)[9]
+        
         """Optimization result (baseline scenario). """
         res_opt["res_opt_SFH06_{0}".format(i+1)] = linprog(c=c["c_SFH06_{0}".format(i+1)], A_ub=Aub["Aub_SFH06_{0}".format(i+1)], b_ub=Bub["Bub_SFH06_{0}".format(i+1)],bounds=bounds["bounds_SFH06_{0}".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
         print("Archetype 2006-today building {0}".format(i+1) + " with air " + Thermal_load + " system:")
@@ -1759,6 +1760,8 @@ def pv_centralized(Locality, day, month, duration, timestep, Thermal_load,
         """Calling upper and lower temperature profiles that define the temperature range set in the tersmostat during the BL scenario. """
         upper["upper_SFH05_{0}".format(i+1)] = SFH2005_air(Locality, day, month, duration, timestep, tsp["tspSFH05_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH05_{0}".format(i+1)], gains["gainsSFH05_{0}".format(i+1)],Q_SFH05_air)[7]
         lower["lower_SFH05_{0}".format(i+1)] = SFH2005_air(Locality, day, month, duration, timestep, tsp["tspSFH05_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH05_{0}".format(i+1)], gains["gainsSFH05_{0}".format(i+1)],Q_SFH05_air)[8]
+                
+        floor_area_SFH05air = SFH2005_air(Locality, day, month, duration, timestep, tsp["tspSFH05_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH05_{0}".format(i+1)], gains["gainsSFH05_{0}".format(i+1)],Q_SFH05_air)[9]
         
         """Optimization result (baseline scenario). """
         res_opt["res_opt_SFH05_{0}".format(i+1)] = linprog(c=c["c_SFH05_{0}".format(i+1)], A_ub=Aub["Aub_SFH05_{0}".format(i+1)], b_ub=Bub["Bub_SFH05_{0}".format(i+1)],bounds=bounds["bounds_SFH05_{0}".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -1801,6 +1804,8 @@ def pv_centralized(Locality, day, month, duration, timestep, Thermal_load,
         """Calling upper and lower temperature profiles that define the temperature range set in the tersmostat during the BL scenario. """
         upper["upper_SFH90_{0}".format(i+1)]     = SFH1990_air(Locality, day, month, duration, timestep, tsp["tspSFH90_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH90_{0}".format(i+1)], gains["gainsSFH90_{0}".format(i+1)],Q_SFH90_air)[7]
         lower["lower_SFH90_{0}".format(i+1)]     = SFH1990_air(Locality, day, month, duration, timestep, tsp["tspSFH90_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH90_{0}".format(i+1)], gains["gainsSFH90_{0}".format(i+1)],Q_SFH90_air)[8]
+                
+        floor_area_SFH90air     = SFH1990_air(Locality, day, month, duration, timestep, tsp["tspSFH90_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH90_{0}".format(i+1)], gains["gainsSFH90_{0}".format(i+1)],Q_SFH90_air)[9]
         
         """Optimization result (baseline scenario)"""
         res_opt["res_opt_SFH90_{0}".format(i+1)] = linprog(c=c["c_SFH90_{0}".format(i+1)], A_ub=Aub["Aub_SFH90_{0}".format(i+1)], b_ub=Bub["Bub_SFH90_{0}".format(i+1)],bounds=bounds["bounds_SFH90_{0}".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -1843,6 +1848,8 @@ def pv_centralized(Locality, day, month, duration, timestep, Thermal_load,
         """Calling upper and lower temperature profiles that define the temperature range set in the tersmostat during the BL scenario. """
         upper["upper_SFH60_{0}".format(i+1)] = SFH1960_air(Locality, day, month, duration, timestep, tsp["tspSFH60_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH60_{0}".format(i+1)], gains["gainsSFH60_{0}".format(i+1)],Q_SFH60_air)[7]
         lower["lower_SFH60_{0}".format(i+1)] = SFH1960_air(Locality, day, month, duration, timestep, tsp["tspSFH60_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH60_{0}".format(i+1)], gains["gainsSFH60_{0}".format(i+1)],Q_SFH60_air)[8]
+                
+        floor_area_SFH60air = SFH1960_air(Locality, day, month, duration, timestep, tsp["tspSFH60_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH60_{0}".format(i+1)], gains["gainsSFH60_{0}".format(i+1)],Q_SFH60_air)[9]
         
         """Optimization result (baseline scenario). """
         res_opt["res_opt_SFH60_{0}".format(i+1)] = linprog(c=c["c_SFH60_{0}".format(i+1)], A_ub=Aub["Aub_SFH60_{0}".format(i+1)], b_ub=Bub["Bub_SFH60_{0}".format(i+1)],bounds=bounds["bounds_SFH60_{0}".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -1889,6 +1896,8 @@ def pv_centralized(Locality, day, month, duration, timestep, Thermal_load,
         """Calling of variables referring to the state of indoor air temperature. """
         upper["upper_SFH06_{0}_floor".format(i+1)]     = SFH2006_floor(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}_floor".format(i+1)], th_tolerance_BL_sup_floor, th_tolerance_BL_min_floor, occ["occupancySFH06_{0}_floor".format(i+1)], gains["gainsSFH06_{0}_floor".format(i+1)],Q_SFH06_floor)[7]
         lower["lower_SFH06_{0}_floor".format(i+1)]     = SFH2006_floor(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}_floor".format(i+1)], th_tolerance_BL_sup_floor, th_tolerance_BL_min_floor, occ["occupancySFH06_{0}_floor".format(i+1)], gains["gainsSFH06_{0}_floor".format(i+1)],Q_SFH06_floor)[8]
+                
+        floor_area_SFH06floor     = SFH2006_floor(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}_floor".format(i+1)], th_tolerance_BL_sup_floor, th_tolerance_BL_min_floor, occ["occupancySFH06_{0}_floor".format(i+1)], gains["gainsSFH06_{0}_floor".format(i+1)],Q_SFH06_floor)[11]
         
         """Optimization result (baseline scenario). """
         res_opt["res_opt_SFH06_{0}_floor".format(i+1)] = linprog(c=c["c_SFH06_{0}_floor".format(i+1)], A_ub=Aub["Aub_SFH06_{0}_floor".format(i+1)], b_ub=Bub["Bub_SFH06_{0}_floor".format(i+1)],bounds=bounds["bounds_SFH06_{0}_floor".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -1933,11 +1942,26 @@ def pv_centralized(Locality, day, month, duration, timestep, Thermal_load,
         """If "calculated", the rated power of the PV systems available to archetypes are calculated according to the Italian regulation Dlgs. 28/2011. """
         panel = float(panel_dim)                                  # W
      
-        PV_06_air    = (Archetypes.floor_area_SFH2006/50)*1000    # W
-        PV_05_air    = (Archetypes.floor_area_SFH2005/50)*1000    # W
-        PV_90_air    = (Archetypes.floor_area_SFH1990/50)*1000    # W
-        PV_60_air    = (Archetypes.floor_area_SFH1960/50)*1000    # W
-        PV_06_floor  = (Archetypes.floor_area_SFH2006/50)*1000    # W
+        if n_SFH06_air > 0:
+            PV_06_air    = (floor_area_SFH06air/50)*1000    # W
+        else:
+            PV_06_air = 0
+        if n_SFH05_air > 0:
+            PV_05_air    = (floor_area_SFH05air/50)*1000    # W
+        else:
+            PV_05_air = 0
+        if n_SFH90_air > 0:
+            PV_90_air    = (floor_area_SFH90air/50)*1000    # W
+        else:
+            PV_90_air = 0
+        if n_SFH60_air > 0: 
+            PV_60_air    = (floor_area_SFH60air/50)*1000    # W
+        else:
+            PV_60_air = 0
+        if n_SFH06_floor > 0:
+            PV_06_floor  = (floor_area_SFH06floor/50)*1000    # W
+        else:
+            PV_06_floor = 0
         
         n_panels_06_air   = math.ceil(PV_06_air/panel)            # Number of panels defining the photovoltaic system of the 2006-today archetype with air system
         n_panels_05_air   = math.ceil(PV_05_air/panel)            # Number of panels defining the photovoltaic system of the 1991-2005 archetype with air system
@@ -2852,6 +2876,8 @@ def pv_distributed(Locality, day, month, duration, timestep, Thermal_load,
         """Calling upper and lower temperature profiles that define the temperature range set in the tersmostat during the BL scenario. """
         upper["upper_SFH06_{0}".format(i+1)]     = SFH2006_air(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH06_{0}".format(i+1)], gains["gainsSFH06_{0}".format(i+1)],Q_SFH06_air)[7]
         lower["lower_SFH06_{0}".format(i+1)]     = SFH2006_air(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH06_{0}".format(i+1)], gains["gainsSFH06_{0}".format(i+1)],Q_SFH06_air)[8]
+                
+        floor_area_SFH06air     = SFH2006_air(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH06_{0}".format(i+1)], gains["gainsSFH06_{0}".format(i+1)],Q_SFH06_air)[9]
         
         """Optimization result (baseline scenario). """
         res_opt["res_opt_SFH06_{0}".format(i+1)] = linprog(c=c["c_SFH06_{0}".format(i+1)], A_ub=Aub["Aub_SFH06_{0}".format(i+1)], b_ub=Bub["Bub_SFH06_{0}".format(i+1)],bounds=bounds["bounds_SFH06_{0}".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -2894,6 +2920,8 @@ def pv_distributed(Locality, day, month, duration, timestep, Thermal_load,
         """Calling upper and lower temperature profiles that define the temperature range set in the tersmostat during the BL scenario. """
         upper["upper_SFH05_{0}".format(i+1)] = SFH2005_air(Locality, day, month, duration, timestep, tsp["tspSFH05_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH05_{0}".format(i+1)], gains["gainsSFH05_{0}".format(i+1)],Q_SFH05_air)[7]
         lower["lower_SFH05_{0}".format(i+1)] = SFH2005_air(Locality, day, month, duration, timestep, tsp["tspSFH05_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH05_{0}".format(i+1)], gains["gainsSFH05_{0}".format(i+1)],Q_SFH05_air)[8]
+                
+        floor_area_SFH05air = SFH2005_air(Locality, day, month, duration, timestep, tsp["tspSFH05_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH05_{0}".format(i+1)], gains["gainsSFH05_{0}".format(i+1)],Q_SFH05_air)[9]
         
         """Optimization result (baseline scenario). """
         res_opt["res_opt_SFH05_{0}".format(i+1)] = linprog(c=c["c_SFH05_{0}".format(i+1)], A_ub=Aub["Aub_SFH05_{0}".format(i+1)], b_ub=Bub["Bub_SFH05_{0}".format(i+1)],bounds=bounds["bounds_SFH05_{0}".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -2936,6 +2964,8 @@ def pv_distributed(Locality, day, month, duration, timestep, Thermal_load,
         """Calling upper and lower temperature profiles that define the temperature range set in the tersmostat during the BL scenario. """
         upper["upper_SFH90_{0}".format(i+1)]     = SFH1990_air(Locality, day, month, duration, timestep, tsp["tspSFH90_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH90_{0}".format(i+1)], gains["gainsSFH90_{0}".format(i+1)],Q_SFH90_air)[7]
         lower["lower_SFH90_{0}".format(i+1)]     = SFH1990_air(Locality, day, month, duration, timestep, tsp["tspSFH90_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH90_{0}".format(i+1)], gains["gainsSFH90_{0}".format(i+1)],Q_SFH90_air)[8]
+                
+        floor_area_SFH90air     = SFH1990_air(Locality, day, month, duration, timestep, tsp["tspSFH90_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH90_{0}".format(i+1)], gains["gainsSFH90_{0}".format(i+1)],Q_SFH90_air)[9]
         
         """Optimization result (baseline scenario)"""
         res_opt["res_opt_SFH90_{0}".format(i+1)] = linprog(c=c["c_SFH90_{0}".format(i+1)], A_ub=Aub["Aub_SFH90_{0}".format(i+1)], b_ub=Bub["Bub_SFH90_{0}".format(i+1)],bounds=bounds["bounds_SFH90_{0}".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -2978,6 +3008,8 @@ def pv_distributed(Locality, day, month, duration, timestep, Thermal_load,
         """Calling upper and lower temperature profiles that define the temperature range set in the tersmostat during the BL scenario. """
         upper["upper_SFH60_{0}".format(i+1)] = SFH1960_air(Locality, day, month, duration, timestep, tsp["tspSFH60_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH60_{0}".format(i+1)], gains["gainsSFH60_{0}".format(i+1)],Q_SFH60_air)[7]
         lower["lower_SFH60_{0}".format(i+1)] = SFH1960_air(Locality, day, month, duration, timestep, tsp["tspSFH60_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH60_{0}".format(i+1)], gains["gainsSFH60_{0}".format(i+1)],Q_SFH60_air)[8]
+                
+        floor_area_SFH60air = SFH1960_air(Locality, day, month, duration, timestep, tsp["tspSFH60_{0}".format(i+1)], th_tolerance_BL_sup_air, th_tolerance_BL_min_air, Thermal_load, occ["occupancySFH60_{0}".format(i+1)], gains["gainsSFH60_{0}".format(i+1)],Q_SFH60_air)[9]
         
         """Optimization result (baseline scenario). """
         res_opt["res_opt_SFH60_{0}".format(i+1)] = linprog(c=c["c_SFH60_{0}".format(i+1)], A_ub=Aub["Aub_SFH60_{0}".format(i+1)], b_ub=Bub["Bub_SFH60_{0}".format(i+1)],bounds=bounds["bounds_SFH60_{0}".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -3024,6 +3056,8 @@ def pv_distributed(Locality, day, month, duration, timestep, Thermal_load,
         """Calling of variables referring to the state of indoor air temperature. """
         upper["upper_SFH06_{0}_floor".format(i+1)]     = SFH2006_floor(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}_floor".format(i+1)], th_tolerance_BL_sup_floor, th_tolerance_BL_min_floor, occ["occupancySFH06_{0}_floor".format(i+1)], gains["gainsSFH06_{0}_floor".format(i+1)],Q_SFH06_floor)[7]
         lower["lower_SFH06_{0}_floor".format(i+1)]     = SFH2006_floor(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}_floor".format(i+1)], th_tolerance_BL_sup_floor, th_tolerance_BL_min_floor, occ["occupancySFH06_{0}_floor".format(i+1)], gains["gainsSFH06_{0}_floor".format(i+1)],Q_SFH06_floor)[8]
+                
+        floor_area_SFH06floor     = SFH2006_floor(Locality, day, month, duration, timestep, tsp["tspSFH06_{0}_floor".format(i+1)], th_tolerance_BL_sup_floor, th_tolerance_BL_min_floor, occ["occupancySFH06_{0}_floor".format(i+1)], gains["gainsSFH06_{0}_floor".format(i+1)],Q_SFH06_floor)[11]
         
         """Optimization result (baseline scenario). """
         res_opt["res_opt_SFH06_{0}_floor".format(i+1)] = linprog(c=c["c_SFH06_{0}_floor".format(i+1)], A_ub=Aub["Aub_SFH06_{0}_floor".format(i+1)], b_ub=Bub["Bub_SFH06_{0}_floor".format(i+1)],bounds=bounds["bounds_SFH06_{0}_floor".format(i+1)], method='highs-ipm', options={'maxiter': 1000000})
@@ -3068,11 +3102,26 @@ def pv_distributed(Locality, day, month, duration, timestep, Thermal_load,
         """If "calculated", the rated power of the PV systems available to archetypes are calculated according to the Italian regulation Dlgs. 28/2011. """
         panel = float(panel_dim)                                  # W
      
-        PV_06_air    = (Archetypes.floor_area_SFH2006/50)*1000    # W
-        PV_05_air    = (Archetypes.floor_area_SFH2005/50)*1000    # W
-        PV_90_air    = (Archetypes.floor_area_SFH1990/50)*1000    # W
-        PV_60_air    = (Archetypes.floor_area_SFH1960/50)*1000    # W
-        PV_06_floor  = (Archetypes.floor_area_SFH2006/50)*1000    # W
+        if n_SFH06_air > 0:
+            PV_06_air    = (floor_area_SFH06air/50)*1000    # W
+        else:
+            PV_06_air = 0
+        if n_SFH05_air > 0:
+            PV_05_air    = (floor_area_SFH05air/50)*1000    # W
+        else:
+            PV_05_air = 0
+        if n_SFH90_air > 0:
+            PV_90_air    = (floor_area_SFH90air/50)*1000    # W
+        else:
+            PV_90_air = 0
+        if n_SFH60_air > 0: 
+            PV_60_air    = (floor_area_SFH60air/50)*1000    # W
+        else:
+            PV_60_air = 0
+        if n_SFH06_floor > 0:
+            PV_06_floor  = (floor_area_SFH06floor/50)*1000    # W
+        else:
+            PV_06_floor = 0
         
         n_panels_06_air   = math.ceil(PV_06_air/panel)            # Number of panels defining the photovoltaic system of the 2006-today archetype with air system
         n_panels_05_air   = math.ceil(PV_05_air/panel)            # Number of panels defining the photovoltaic system of the 1991-2005 archetype with air system
