@@ -28,7 +28,8 @@ ClustEnergy OpTool is implemented in Python 3.9 and uses the following libraries
 - Alessia Arteconi a.arteconi@univpm.it
 
 # Revision history
-29 February 2024, first version
+- 29 February 2024, first version
+- 05 March 2024, debugging in the photovoltaic system sizing function 
 
 # References
 - Mugnini, A., Polonara, F., Arteconi, A., 2021. Energy Flexibility of Clusters of Buildings: development of an assessment tool. Proceedings of Building Simulation 2021: 17th Conference of IBPSA, IBPSA, 167-174.
