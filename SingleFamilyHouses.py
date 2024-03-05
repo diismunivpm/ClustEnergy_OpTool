@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
 """
-Created on Mon Jan 15 10:14:42 2024
-
-@author: Utente
-"""
-
-"""
-ClustEnergy OpTool
-Released on January, 2024
+ClustEnergy OpTool version 1.0.0
+Released on February 29, 2024
 @author: DIISM UNIVPM
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 """
