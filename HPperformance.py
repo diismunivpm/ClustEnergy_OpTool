@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 """
-Created on Mon May 17 19:00:50 2021
-
-@author: ZEN
+ClustEnergy OpTool version 1.0.0
+Released on February 29, 2024
+@author: DIISM UNIVPM
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 """
 
 """The capacity and coefficient of performance of heat pumps are calculated here as the outdoor temperature varies.
