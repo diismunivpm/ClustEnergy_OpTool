@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 """
-Created on Tue Nov 10 13:42:55 2020
-
-@author: DIISM
+ClustEnergy OpTool version 1.0.0
+Released on February 29, 2024
+@author: DIISM UNIVPM
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 """
 import numpy as np
 import pandas as pd
