@@ -29,7 +29,9 @@ ClustEnergy OpTool is implemented in Python 3.9 and uses the following libraries
 
 # Revision history
 - 29 February 2024, first version
-- 05 March 2024, debugging in the photovoltaic system sizing function 
+- 05 March 2024, debugging in the photovoltaic system sizing function
+- 31 October 2024, added flexible management of DHW production through DR strategies
+- 31 October 2024, added new DR strategy to manage aggregate loads according to price signal and centralized PV production
 
 # References
 - Mugnini, A., Polonara, F., Arteconi, A., 2021. Energy Flexibility of Clusters of Buildings: development of an assessment tool. Proceedings of Building Simulation 2021: 17th Conference of IBPSA, IBPSA, 167-174.
